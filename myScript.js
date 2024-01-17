@@ -3,7 +3,7 @@ const start = document.querySelector('#start');
 const stop = document.querySelector('#stop');
 
 
-let hexColor = function()
+function hexColor()
 {
     const myArr = "0123456789ABCDEF";
     let color = '#';
@@ -17,14 +17,24 @@ let hexColor = function()
 }
 
 
-let bgChange = function(){
+function setColor()
+{
     body.style.backgroundColor = hexColor();
 }
 let intervalId;
-start.addEventListener('click', ()=>{
-    intervalId = setInterval(bgChange(), 1);
-})
-
-stop.addEventListener('click', ()=>{
+function bgChange()
+{
+    if(!intervalId)
+    {
+        intervalId = setInterval(setColor, 1000);
+    }    
+}
+function stopChange()
+{
     clearInterval(intervalId);
-})
+    intervalId = null;
+}
+
+start.addEventListener('click', bgChange)
+
+stop.addEventListener('click', stopChange)
